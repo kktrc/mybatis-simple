@@ -129,9 +129,89 @@ public class UserMapperTest extends BaseMapperTest {
 
             sqlSession.close();
         }
-
     }
 
 
+
+    @Test
+    public void testUpdateById() {
+
+        SqlSession sqlSession = getSqlSession();
+        try {
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+
+            SysUser user = userMapper.selectById(1L);
+            Assert.assertEquals("admin", user.getUserName());
+
+            user.setUserName("admin_test");
+            user.setUserEmail("test@mybatis.tk");
+
+            int result = userMapper.updateById(user);
+
+            Assert.assertEquals(1, result);
+
+            user = userMapper.selectById(1L);
+
+            Assert.assertEquals("admin_test", user.getUserName());
+        } finally {
+
+            sqlSession.rollback();
+            sqlSession.close();
+        }
+    }
+
+
+
+    @Test
+    public void testDeleteById() {
+
+        SqlSession sqlSession = getSqlSession();
+        try {
+
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+
+            SysUser user1 = userMapper.selectById(1L);
+
+            Assert.assertNotNull(user1);
+
+
+            Assert.assertEquals(1, userMapper.deleteById(1L));
+
+            Assert.assertNull(userMapper.selectById(1L));
+
+
+            SysUser user2 = userMapper.selectById(1001L);
+
+            Assert.assertNotNull(user2);
+
+            Assert.assertEquals(1, userMapper.deleteById(user2));
+
+            Assert.assertNull(userMapper.selectById(1001L));
+        } finally {
+
+            sqlSession.rollback();
+            sqlSession.close();
+        }
+    }
+
+
+
+
+    @Test
+    public void testSelectRolesByUserIdAndRoleEnabled() {
+
+        SqlSession sqlSession = getSqlSession();
+        try {
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            List<SysRole> roleList =
+                userMapper.selectRolesByUserIdAndRoleEnabled(1L, 1);
+
+            Assert.assertNotNull(roleList);
+
+            Assert.assertTrue(roleList.size() > 0);
+        } finally {
+            sqlSession.close();
+        }
+    }
 
 }
