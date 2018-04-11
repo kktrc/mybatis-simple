@@ -1,0 +1,11 @@
+/Users/mosl/CaiPing/mybatis-simple/src/main/java/tk/mybatis/simple/model/SysUserRole.java
+/Users/mosl/CaiPing/mybatis-simple/src/main/java/tk/mybatis/simple/model/SysUser.java
+/Users/mosl/CaiPing/mybatis-simple/src/main/java/tk/mybatis/simple/model/SysRole.java
+/Users/mosl/CaiPing/mybatis-simple/src/main/java/tk/mybatis/simple/mapper/UserMapper.java
+/Users/mosl/CaiPing/mybatis-simple/src/main/java/tk/mybatis/simple/model/SysRolePrivilege.java
+/Users/mosl/CaiPing/mybatis-simple/src/main/java/tk/mybatis/simple/model/Country.java
+/Users/mosl/CaiPing/mybatis-simple/src/main/java/tk/mybatis/simple/mapper/CountryMapper.java
+/Users/mosl/CaiPing/mybatis-simple/src/main/java/tk/mybatis/simple/mapper/RoleMapper.java
+/Users/mosl/CaiPing/mybatis-simple/src/main/java/tk/mybatis/simple/mapper/UserRoleMapper.java
+/Users/mosl/CaiPing/mybatis-simple/src/main/java/tk/mybatis/simple/mapper/RolePrivilegeMapper.java
+/Users/mosl/CaiPing/mybatis-simple/src/main/java/tk/mybatis/simple/mapper/PrivilegeMapper.java
