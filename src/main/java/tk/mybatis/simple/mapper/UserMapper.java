@@ -1,6 +1,7 @@
 package tk.mybatis.simple.mapper;
 
 import java.util.List;
+import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 import tk.mybatis.simple.model.SysRole;
 import tk.mybatis.simple.model.SysUser;
@@ -109,4 +110,29 @@ public interface UserMapper {
     List<SysRole> selectRolesByUserIdAndRoleEnabled(
         @Param("userId") Long userId,
         @Param("enabled") Integer enabled);
+
+
+
+
+
+
+    List<SysUser> selectByUser(SysUser user);
+
+
+
+
+
+
+    int updateByIdSelective(SysUser user);
+
+
+
+
+
+    int insertList(List<SysUser> userList);
+
+
+
+
+    int updateByMap(Map<String, Object> map);
 }

@@ -214,4 +214,27 @@ public class UserMapperTest extends BaseMapperTest {
         }
     }
 
+
+
+
+
+    @Test
+    public void test2Cache() {
+
+        SqlSession sqlSession = getSqlSession();
+        try {
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+
+            SysUser user1 = userMapper.selectById(1L);
+
+
+            SysUser user2 = userMapper.selectById(1L);
+
+
+            Assert.assertTrue(user1 == user2);
+        } finally {
+            sqlSession.close();
+        }
+    }
+
 }

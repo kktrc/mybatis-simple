@@ -6,6 +6,11 @@
 <mapper namespace="tk.mybatis.simple.mapper.UserMapper">
 
 
+  <!-- 使用redis 作为二级缓存 -->
+  <cache type="org.mybatis.caches.redis.RedisCache"/>
+
+
+
   <resultMap id="userMap" type="tk.mybatis.simple.model.SysUser">
     <id property="id" column="id"/>
     <result property="userName" column="user_name" />
@@ -115,6 +120,7 @@
 
 
   <select id="selectRolesByUserIdAndRoleEnabled"
+          useCache="false"
           resultType="tk.mybatis.simple.model.SysRole">
     select
         r.id,
@@ -128,6 +134,65 @@
     where u.id = #{userId} and r.enabled = #{enabled}
   </select>
 
+
+
+  <select id="selectByUser" resultType="tk.mybatis.simple.model.SysUser">
+    select id,
+        user_name userName,
+        user_password userPassword,
+        user_email userEmail,
+        user_info userInfo,
+        head_img headImg,
+        create_time createTime
+    from sys_user
+    where 1 = 1
+    <if test="userName != null and userName != '' ">
+      and user_name like concat('%',#{userName}, '%')
+    </if>
+    <if test="userEmail != null and userEmail !+ '' ">
+      and user_email = #{userEmail}
+    </if>
+  </select>
+
+
+
+  <update id="updateByIdSelective">
+    update sys_user
+    set
+        <if test="userName != null and userName != '' ">
+          user_name = #{userName},
+        </if>
+        <if test="userPassword != null and userPassword != ''">
+          user_password = #{user}
+        </if>
+  </update>
+
+
+
+  <insert id="insertList">
+    insert into sys_user(
+        user_name, user_password, user_email,
+        user_info, head_img, create_time
+    )
+    values
+    <foreach collection="list" item="user" separator=",">
+      (
+      #{user.userName}, #{user.userPassword}, #{user.userEmail},
+      #{user.userInfo}, #{user.headImg, jdbcType=BLOB},
+      #{user.createTime, jdcbType=TIMESTAMP}
+      )
+    </foreach>
+  </insert>
+
+
+  <update id="updateByMap">
+    update sys_user
+    set
+    <foreach collection="_parameter" item="val" index="key" separator=",">
+      ${key} = #{val}
+    </foreach>
+    where id = #{id}
+  </update>
 
 
 </mapper>

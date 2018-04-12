@@ -6,6 +6,11 @@
 <mapper namespace="tk.mybatis.simple.mapper.UserMapper">
 
 
+  <!-- 使用redis 作为二级缓存 -->
+  <cache type="org.mybatis.caches.redis.RedisCache"/>
+
+
+
   <resultMap id="userMap" type="tk.mybatis.simple.model.SysUser">
     <id property="id" column="id"/>
     <result property="userName" column="user_name" />
@@ -115,6 +120,7 @@
 
 
   <select id="selectRolesByUserIdAndRoleEnabled"
+          useCache="false"
           resultType="tk.mybatis.simple.model.SysRole">
     select
         r.id,

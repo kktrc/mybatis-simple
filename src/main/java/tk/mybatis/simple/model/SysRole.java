@@ -1,10 +1,11 @@
 package tk.mybatis.simple.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
 
 @Data
-public class SysRole {
+public class SysRole implements Serializable {
 
 
     private Long id;
